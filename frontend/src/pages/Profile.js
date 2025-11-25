@@ -9,8 +9,7 @@ export default function Profile() {
   const [formData, setFormData] = useState({
     name: userData?.name || '',
     semester: userData?.semester || '',
-    batch: userData?.batch || '',
-    notificationsEnabled: userData?.notificationsEnabled || false
+    batch: userData?.batch || ''
   });
   const [success, setSuccess] = useState('');
 
@@ -29,7 +28,9 @@ export default function Profile() {
   return (
     <div className="container" style={{ maxWidth: '700px', marginTop: '40px' }}>
       <div className="card">
-        <h1 style={{ color: '#667eea', marginBottom: '24px' }}>👤 Profile</h1>
+        <h1 style={{ color: '#1a202c', marginBottom: '28px', fontSize: '28px', fontWeight: '700' }}>
+          Profile Settings
+        </h1>
 
         {success && <div className="alert alert-success">{success}</div>}
 
@@ -77,19 +78,6 @@ export default function Profile() {
             />
           </div>
 
-          <div className="input-group">
-            <label style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-              <input
-                type="checkbox"
-                checked={formData.notificationsEnabled}
-                onChange={(e) => setFormData({ ...formData, notificationsEnabled: e.target.checked })}
-                disabled={!editing}
-                style={{ width: 'auto' }}
-              />
-              Enable Email Notifications (when attendance drops below 75%)
-            </label>
-          </div>
-
           <div className="flex gap-10">
             {!editing ? (
               <>
@@ -134,11 +122,13 @@ export default function Profile() {
       </div>
 
       <div className="card" style={{ marginTop: '24px' }}>
-        <h3 style={{ color: '#2d3748', marginBottom: '16px' }}>Account Information</h3>
-        <p style={{ color: '#718096' }}>
+        <h3 style={{ color: '#1a202c', marginBottom: '16px', fontSize: '18px', fontWeight: '600' }}>
+          Account Information
+        </h3>
+        <p style={{ color: '#6b7280', fontSize: '14px', marginBottom: '8px' }}>
           <strong>Account Created:</strong> {userData?.createdAt ? new Date(userData.createdAt).toLocaleDateString() : 'N/A'}
         </p>
-        <p style={{ color: '#718096', marginTop: '8px' }}>
+        <p style={{ color: '#6b7280', fontSize: '14px' }}>
           <strong>User ID:</strong> {currentUser?.uid}
         </p>
       </div>

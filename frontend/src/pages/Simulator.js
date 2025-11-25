@@ -45,8 +45,10 @@ export default function Simulator() {
   return (
     <div className="container" style={{ maxWidth: '700px', marginTop: '40px' }}>
       <div className="card">
-        <h1 style={{ color: '#667eea', marginBottom: '24px' }}>🎯 Bunk Predictor</h1>
-        <p style={{ color: '#718096', marginBottom: '24px' }}>
+        <h1 style={{ color: '#1a202c', marginBottom: '12px', fontSize: '28px', fontWeight: '700' }}>
+          Bunk Predictor
+        </h1>
+        <p style={{ color: '#6b7280', marginBottom: '32px', fontSize: '15px' }}>
           Simulate future attendance before making decisions
         </p>
 
@@ -85,19 +87,21 @@ export default function Simulator() {
         </button>
 
         {prediction && (
-          <div style={{ marginTop: '24px' }}>
+          <div style={{ marginTop: '28px' }}>
             <div className={`alert ${prediction.isSafe ? 'alert-success' : 'alert-danger'}`}>
-              <h3 style={{ marginBottom: '12px' }}>Prediction for {prediction.subjectName}</h3>
-              <p><strong>Current Attendance:</strong> {prediction.current}%</p>
-              <p><strong>After Bunking {classesToBunk} classes:</strong> {prediction.predicted}%</p>
-              <hr style={{ margin: '12px 0', border: 'none', borderTop: '1px solid rgba(0,0,0,0.1)' }} />
+              <h3 style={{ marginBottom: '16px', fontSize: '17px', fontWeight: '600' }}>
+                Prediction for {prediction.subjectName}
+              </h3>
+              <p style={{ marginBottom: '8px' }}><strong>Current Attendance:</strong> {prediction.current}%</p>
+              <p style={{ marginBottom: '16px' }}><strong>After Bunking {classesToBunk} classes:</strong> {prediction.predicted}%</p>
+              <hr style={{ margin: '16px 0', border: 'none', borderTop: '1px solid rgba(0,0,0,0.1)' }} />
               {prediction.isSafe ? (
-                <p style={{ fontSize: '18px', fontWeight: 'bold' }}>
-                  ✅ Safe! You'll still be above 75%
+                <p style={{ fontSize: '16px', fontWeight: '600', margin: 0 }}>
+                  Safe to proceed. You'll remain above 75%
                 </p>
               ) : (
-                <p style={{ fontSize: '18px', fontWeight: 'bold' }}>
-                  🚨 Risky! You'll drop below 75%
+                <p style={{ fontSize: '16px', fontWeight: '600', margin: 0 }}>
+                  Warning: You'll drop below 75%
                 </p>
               )}
             </div>
@@ -105,20 +109,22 @@ export default function Simulator() {
         )}
 
         {subjects.length === 0 && (
-          <div className="alert alert-warning" style={{ marginTop: '20px' }}>
+          <div className="alert alert-warning" style={{ marginTop: '24px' }}>
             No subjects found. Add subjects from your dashboard first.
           </div>
         )}
       </div>
 
       <div className="card" style={{ marginTop: '24px' }}>
-        <h3 style={{ color: '#2d3748', marginBottom: '16px' }}>How It Works</h3>
-        <ul style={{ paddingLeft: '20px', color: '#4a5568', lineHeight: '1.8' }}>
+        <h3 style={{ color: '#1a202c', marginBottom: '16px', fontSize: '18px', fontWeight: '600' }}>
+          How It Works
+        </h3>
+        <ul style={{ paddingLeft: '20px', color: '#4b5563', lineHeight: '1.8', fontSize: '14px' }}>
           <li>Select any subject from your list</li>
           <li>Enter the number of classes you plan to bunk</li>
           <li>See your predicted attendance percentage</li>
-          <li>Green alert = Safe to bunk</li>
-          <li>Red alert = Don't bunk, attendance will drop</li>
+          <li>Green alert indicates safe to bunk</li>
+          <li>Red alert warns that attendance will drop below threshold</li>
         </ul>
       </div>
     </div>

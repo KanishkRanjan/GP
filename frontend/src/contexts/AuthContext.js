@@ -24,8 +24,7 @@ export const AuthProvider = ({ children }) => {
       semester,
       batch,
       email,
-      createdAt: new Date().toISOString(),
-      notificationsEnabled: true
+      createdAt: new Date().toISOString()
     });
     return userCredential;
   };

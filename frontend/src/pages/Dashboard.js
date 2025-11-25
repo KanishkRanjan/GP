@@ -77,24 +77,35 @@ export default function Dashboard() {
     }));
   };
 
-  const COLORS = ['#667eea', '#48bb78', '#f56565', '#ecc94b', '#38b2ac', '#ed8936'];
+  const COLORS = ['#2d3561', '#2f6f4f', '#c94240', '#d97706', '#5b7c99', '#8b5a3c'];
 
-  if (loading) return <div className="container">Loading...</div>;
+  if (loading) return <div className="container" style={{ padding: '40px', textAlign: 'center' }}>Loading...</div>;
 
   return (
     <div className="container">
-      <div className="flex-between" style={{ marginBottom: '24px' }}>
+      <div style={{ 
+        display: 'flex', 
+        justifyContent: 'space-between', 
+        alignItems: 'center',
+        marginBottom: '32px' 
+      }}>
         <div>
-          <h1 style={{ color: '#2d3748' }}>Welcome, {userData?.name}!</h1>
-          <p style={{ color: '#718096' }}>Semester {userData?.semester} | Batch {userData?.batch}</p>
+          <h1 style={{ color: '#1a202c', fontSize: '28px', marginBottom: '6px', fontWeight: '700' }}>
+            Welcome back, {userData?.name}
+          </h1>
+          <p style={{ color: '#6b7280', fontSize: '15px' }}>
+            Semester {userData?.semester} • Batch {userData?.batch}
+          </p>
         </div>
         <button className="btn btn-primary" onClick={() => setShowAddModal(true)}>
-          + Add Subject
+          Add Subject
         </button>
       </div>
 
       <div className="card">
-        <h2 style={{ marginBottom: '16px' }}>Overall Attendance: {calculateOverallAttendance()}%</h2>
+        <h2 style={{ marginBottom: '16px', fontSize: '18px', fontWeight: '600', color: '#374151' }}>
+          Overall Attendance: {calculateOverallAttendance()}%
+        </h2>
         <div className="progress-bar">
           <div 
             className={`progress-fill ${calculateOverallAttendance() >= 75 ? 'progress-green' : calculateOverallAttendance() >= 70 ? 'progress-yellow' : 'progress-red'}`}
@@ -105,7 +116,9 @@ export default function Dashboard() {
 
       {subjects.length > 0 && (
         <div className="card">
-          <h3 style={{ marginBottom: '16px' }}>Attendance Distribution</h3>
+          <h3 style={{ marginBottom: '20px', fontSize: '18px', fontWeight: '600', color: '#374151' }}>
+            Attendance Distribution
+          </h3>
           <ResponsiveContainer width="100%" height={300}>
             <PieChart>
               <Pie
@@ -137,55 +150,59 @@ export default function Dashboard() {
 
           return (
             <div key={subject.id} className="subject-card">
-              <div className="flex-between" style={{ marginBottom: '12px' }}>
-                <h3 style={{ color: '#2d3748' }}>{subject.name}</h3>
+              <div className="flex-between" style={{ marginBottom: '16px' }}>
+                <h3 style={{ color: '#1a202c', fontSize: '18px', fontWeight: '600' }}>{subject.name}</h3>
                 <button 
                   className="btn btn-danger" 
-                  style={{ padding: '6px 12px', fontSize: '14px' }}
+                  style={{ padding: '8px 16px', fontSize: '13px' }}
                   onClick={() => handleDeleteSubject(subject.id)}
                 >
                   Delete
                 </button>
               </div>
 
-              <div style={{ marginBottom: '12px' }}>
-                <label style={{ fontSize: '14px', color: '#718096' }}>Total Classes</label>
+              <div style={{ marginBottom: '14px' }}>
+                <label style={{ fontSize: '13px', color: '#6b7280', fontWeight: '500' }}>Total Classes</label>
                 <input
                   type="number"
                   value={subject.total}
                   onChange={(e) => handleUpdateSubject(subject.id, 'total', e.target.value)}
-                  style={{ width: '100%', padding: '8px', borderRadius: '6px', border: '1px solid #e2e8f0' }}
+                  style={{ width: '100%', padding: '10px 12px', borderRadius: '8px', border: '1.5px solid #d1d5db', marginTop: '6px' }}
                   min="0"
                 />
               </div>
 
-              <div style={{ marginBottom: '12px' }}>
-                <label style={{ fontSize: '14px', color: '#718096' }}>Attended Classes</label>
+              <div style={{ marginBottom: '14px' }}>
+                <label style={{ fontSize: '13px', color: '#6b7280', fontWeight: '500' }}>Attended Classes</label>
                 <input
                   type="number"
                   value={subject.attended}
                   onChange={(e) => handleUpdateSubject(subject.id, 'attended', e.target.value)}
-                  style={{ width: '100%', padding: '8px', borderRadius: '6px', border: '1px solid #e2e8f0' }}
+                  style={{ width: '100%', padding: '10px 12px', borderRadius: '8px', border: '1.5px solid #d1d5db', marginTop: '6px' }}
                   min="0"
                   max={subject.total}
                 />
               </div>
 
-              <div style={{ background: '#f7fafc', padding: '12px', borderRadius: '8px' }}>
-                <p><strong>Attendance:</strong> <span className={`status-${status.color}`}>{percentage}%</span></p>
-                <p><strong>Status:</strong> <span className={`status-${status.color}`}>{status.status}</span></p>
+              <div style={{ background: '#f9fafb', padding: '16px', borderRadius: '10px', border: '1px solid #e8eaed' }}>
+                <p style={{ marginBottom: '8px', fontSize: '14px' }}>
+                  <strong>Attendance:</strong> <span className={`status-${status.color}`}>{percentage}%</span>
+                </p>
+                <p style={{ marginBottom: '12px', fontSize: '14px' }}>
+                  <strong>Status:</strong> <span className={`status-${status.color}`}>{status.status}</span>
+                </p>
                 
                 {needed > 0 ? (
-                  <div className="alert alert-warning" style={{ marginTop: '8px', padding: '8px' }}>
-                    ⚠️ Attend next <strong>{needed}</strong> classes to reach 75%
+                  <div className="alert alert-warning" style={{ marginTop: '12px', padding: '10px', fontSize: '13px' }}>
+                    Attend next <strong>{needed}</strong> {needed === 1 ? 'class' : 'classes'} to reach 75%
                   </div>
                 ) : (
-                  <div className="alert alert-success" style={{ marginTop: '8px', padding: '8px' }}>
-                    ✅ You can safely bunk <strong>{bunkable}</strong> classes
+                  <div className="alert alert-success" style={{ marginTop: '12px', padding: '10px', fontSize: '13px' }}>
+                    You can safely bunk <strong>{bunkable}</strong> {bunkable === 1 ? 'class' : 'classes'}
                   </div>
                 )}
 
-                <div className="progress-bar" style={{ marginTop: '8px' }}>
+                <div className="progress-bar" style={{ marginTop: '12px' }}>
                   <div 
                     className={`progress-fill progress-${status.color}`}
                     style={{ width: `${Math.min(percentage, 100)}%` }}
@@ -198,8 +215,8 @@ export default function Dashboard() {
       </div>
 
       {subjects.length === 0 && (
-        <div className="card text-center">
-          <p style={{ color: '#718096', fontSize: '18px' }}>No subjects yet. Click "Add Subject" to get started!</p>
+        <div className="card text-center" style={{ padding: '60px 40px' }}>
+          <p style={{ color: '#6b7280', fontSize: '16px' }}>No subjects yet. Click "Add Subject" to get started.</p>
         </div>
       )}
 

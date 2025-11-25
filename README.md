@@ -1,4 +1,4 @@
-# 75% Attendance Tracker
+# BunkMate
 
 A full-stack web application that helps college students track and control their attendance.
 
@@ -8,7 +8,6 @@ A full-stack web application that helps college students track and control their
 - **Dashboard**: Track attendance for all subjects with real-time calculations
 - **Bunk Predictor**: Simulate future attendance before making decisions
 - **Leaderboard**: Compare attendance with peers
-- **Alerts**: Email notifications when attendance drops below 75%
 - **Visual Charts**: Progress bars and pie charts for attendance tracking
 
 ## Tech Stack
@@ -28,74 +27,93 @@ A full-stack web application that helps college students track and control their
 
 ## Setup Instructions
 
-### Prerequisites
-- Node.js (v16 or higher)
-- Firebase CLI
-- Gmail account (for email notifications)
+### Quick Start (100% Free)
 
-### Frontend Setup
-
-1. Navigate to frontend directory:
 ```bash
+# Install dependencies
 cd frontend
-```
-
-2. Install dependencies:
-```bash
 npm install
-```
 
-3. Update Firebase config in `src/firebase.js` with your Firebase project credentials
-
-4. Start development server:
-```bash
+# Start the app
 npm start
 ```
 
-### Backend Setup
+**Before running**, you need to:
+1. Create a Firebase project (free)
+2. Enable Authentication & Firestore
+3. Update `frontend/src/firebase.js` with your config
 
-1. Navigate to backend directory:
-```bash
-cd backend
-```
+**👉 See detailed step-by-step guide: [FREE_SETUP.md](FREE_SETUP.md)**
 
-2. Install Firebase CLI globally:
-```bash
-npm install -g firebase-tools
-```
+---
 
-3. Login to Firebase:
-```bash
-firebase login
-```
+### Manual Setup
+- Node.js (v16 or higher)
+- Firebase account (free tier)
+- Git
 
-4. Initialize Firebase project:
-```bash
-firebase init
-```
+### 1. Create Firebase Project
 
-5. Install backend dependencies:
+1. Go to [Firebase Console](https://console.firebase.google.com/)
+2. Create a new project named "BunkMate"
+3. Enable **Authentication** (Email/Password method)
+4. Enable **Firestore Database** (start in test mode)
+5. Get your Firebase config from Project Settings
+
+### 2. Configure Frontend
+
 ```bash
-cd functions
+cd frontend
+
+# Install dependencies
 npm install
 ```
 
-6. Update email credentials in `functions/index.js`:
-- Replace `your-email@gmail.com` with your Gmail
-- Replace `your-app-password` with your Gmail App Password
+Update `src/firebase.js` with your Firebase configuration:
 
-7. Deploy functions:
-```bash
-firebase deploy --only functions
+```javascript
+const firebaseConfig = {
+  apiKey: "YOUR_API_KEY",
+  authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
+  projectId: "YOUR_PROJECT_ID",
+  storageBucket: "YOUR_PROJECT_ID.appspot.com",
+  messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
+  appId: "YOUR_APP_ID"
+};
 ```
 
-### Firebase Configuration
+### 3. Deploy Firestore Security Rules
 
-1. Create a Firebase project at https://console.firebase.google.com
-2. Enable Authentication (Email/Password)
-3. Enable Firestore Database
-4. Copy your Firebase config and update `frontend/src/firebase.js`
-5. Deploy Firestore rules from `backend/firestore.rules`
+```bash
+cd backend
+firebase login
+firebase init firestore
+firebase deploy --only firestore:rules
+```
+
+### 4. Start the Application
+
+```bash
+cd frontend
+npm start
+```
+
+The app will open at `http://localhost:3000`
+
+---
+
+## 100% Free - No Backend Functions Required
+
+This version runs entirely on Firebase's free tier:
+- ✅ Authentication
+- ✅ Firestore Database
+- ✅ Real-time attendance tracking
+- ✅ Leaderboard
+- ✅ All core features
+
+**Note**: Email notifications and scheduled reports require Cloud Functions (paid tier). See [SETUP_GUIDE.md](SETUP_GUIDE.md) if you want to enable those features.
+
+---
 
 ## Project Structure
 
@@ -130,7 +148,6 @@ ap-proj/
 4. View real-time attendance percentage and recommendations
 5. Use Bunk Predictor to simulate future attendance
 6. Check your rank on the Leaderboard
-7. Enable notifications in Profile settings
 
 ## Formulas
 
@@ -147,5 +164,3 @@ Math.floor((100 * present - 75 * total) / 75)
 ## License
 
 MIT
-# GP
-# GP
